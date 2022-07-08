@@ -54,38 +54,36 @@ pipeline{
 				bat """mvn clean package -Dmaven.test.failure.ignore=true deploy:deploy-file -DgroupId=smartup.microservices -DartifactId=portailRH -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://localhost:8081/repository/maven-releases/ -Dfile=target/portailRH-1.0.jar"""
 			}
 		}
+stage('Building our image') {
+    steps {
+       script {
+          dockerImage= docker.build registry + ":$BUILD_NUMBER" 
+       }
+    }
+  }
 
-		stage('Building our image...'){
-			steps{ 
-				script{ 
-					dockerImage= docker.build registry + ":$BUILD_NUMBER" 
-				}
-			}
-		}
+  stage('Deploy our image') {
+    steps {
+       script {
+         docker.withRegistry( '', registryCredential) {
+            dockerImage.push() 
+         }
+       } 
+    }
+  }
 
-		stage('Deploy our image...'){
-			steps{ 
-				script{
-					docker.withRegistry( '', registryCredential){
-						dockerImage.push()
-					} 
-				} 
-			}
-		}
-
-		stage('Cleaning up...'){
-			steps{
-				bat "docker rmi $registry:$BUILD_NUMBER" 
-			}
-		}
+  stage('Cleaning up') {
+    steps { 
+      bat "docker rmi $registry:$BUILD_NUMBER" 
+    }
+  }
 }
 
-	post{
-		success{
-			emailext body: 'Build success', subject: 'Jenkins', to:'mohamed.laabidi@esprit.tn'
-		}
-		failure{
-			emailext body: 'Build failure', subject: 'Jenkins', to:'mohamed.laabidi@esprit.tn'
-		}
-	}
+ post {
+    always {
+       mail to: 'laabidi.mohamed120@gmail.com',
+          subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
+          body: "${env.BUILD_URL} has result ${currentBuild.result}"
+    }
+  }
 }
