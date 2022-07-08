@@ -58,21 +58,7 @@ private static final Logger l = LogManager.getLogger(DemandeCongeServiceImpl.cla
 			l.log(Level.INFO, () ->"retrieve Demande Conge : " +d);
 		}
 	  
-	 @Test
-	 void testUpdateDemandeConge() {
-			DemandeConge e= dcs.getDemandeCongeById(1);
-			e.setEmployerCongesDemStatut("UP");
-			DemandeConge es= dcs.updateDemandeConge(e);
-			Assert.assertEquals(e.getEmployerCongesDemStatut(), es.getEmployerCongesDemStatut());
-			}	  
-	  
-	  
-	  
-	 @Test
-		void testdeleteDemandeConge(){
-		drep.deleteById(1L);	
-		}
-		  
+	
 		
 		}
 	 
