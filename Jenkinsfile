@@ -6,7 +6,7 @@ pipeline{
 			steps{
 				echo 'Pulling...';
 					git branch: 'main',
-					url : 'https://github.com/laabidi/Smart-RH.git';
+					url : 'https://github.com/laabidi/PFEbackend.git';
 			}
 		}
 
