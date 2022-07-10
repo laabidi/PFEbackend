@@ -79,11 +79,4 @@ stage('Building our image') {
   }
 }
 
- post {
-    always {
-       mail to: 'laabidi.mohamed120@gmail.com',
-          subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
-          body: "${env.BUILD_URL} has result ${currentBuild.result}"
-    }
-  }
 }
