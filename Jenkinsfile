@@ -1,8 +1,10 @@
 pipeline{
 	environment{
 		registry = 'laabidi91/laabidi91'
-		registryCredential= 'dockerHub'
+		DOCKERHUB_CREDENTIALS=credentials('mytoken')
 		dockerImage = ''
+		
+		
 	}
 	
 	agent any 
