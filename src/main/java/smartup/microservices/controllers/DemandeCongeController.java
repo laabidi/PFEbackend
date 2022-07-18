@@ -30,6 +30,7 @@ public class DemandeCongeController {
 	DemandeCongeServiceImpl dcs;
 	
 	
+	
 	@PostMapping("/add-DemandeConge")
 	@ResponseBody
 	public DemandeConge addDemandeConge (@RequestBody DemandeConge dc){
@@ -50,7 +51,7 @@ public class DemandeCongeController {
 	// http://localhost:8081/api/smartRH/retrieve-DemandeConge/{DemandeConge-id}
 	@GetMapping("/retrieve-DemandeConge/{DemandeConge-id}")
 	@ResponseBody
-	public Optional<DemandeConge> retrieveDemandeConge(@PathVariable("DemandeConge-id") String DemandeCongeId){
+	public Optional<DemandeConge> retrieveDemandeConge(@PathVariable("DemandeConge-id") int DemandeCongeId){
 		return dcs.retrieveDemandeConge(DemandeCongeId);
 		
 	}
@@ -64,9 +65,14 @@ public class DemandeCongeController {
 	}
 	// http://localhost:8081/api/smartRH/delete-DemandeConge
 	
-	@DeleteMapping("/delete-DemandeConge/{DemandeConge-id}")
+	@DeleteMapping("/delete-DemandeConge/{DemandeCongeId}")
 	@ResponseBody
-	public void deleteDemandeConge(@PathVariable ("DemandeConge-id") String DemandeCongeId){
-		dcs.deleteDemandeCongeById(1);
+	public void deleteDemandeConge(@PathVariable ("DemandeCongeId") int DemandeCongeId){
+		dcs.deleteDemandeCongeById(DemandeCongeId);
+	}
+	@PostMapping("/acceptedemande/{DemandeCongeId}")
+	@ResponseBody
+	public void acceptedemandeById(@PathVariable int DemandeCongeId) {
+		dcs.acceptedemandeById(DemandeCongeId);
 	}
 }

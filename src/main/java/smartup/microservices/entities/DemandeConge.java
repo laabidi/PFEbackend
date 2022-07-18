@@ -15,6 +15,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,10 +31,10 @@ public class DemandeConge implements Serializable {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="employer_infos_rh_dem_type_id")
     private int employerInfosRhDemTypeId;
-	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Column(name="employer_conges_dem_date_deb")
     private Date employerCongesDemDateDeb;
-	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Column(name="employer_conges_dem_date_fin")
     private Date employerCongesDemDateFin;
     @Column(name="employer_conges_dem_nbr_jrs")
@@ -49,7 +51,7 @@ public class DemandeConge implements Serializable {
     private String employerCongesDemStatut;
     
     
-	@Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	@Column(name="employer_conges_dem_date")
     private Date employerCongesDemDate;
 	

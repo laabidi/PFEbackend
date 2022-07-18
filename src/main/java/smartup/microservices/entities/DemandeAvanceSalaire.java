@@ -1,7 +1,7 @@
 package smartup.microservices.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,8 +32,8 @@ public class DemandeAvanceSalaire implements Serializable {
     private int employerAvSalaireDemId;
    
     private float employerAvSalaireDemMontant;
-   
-    private LocalDate employerAvSalaireDemDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private Date employerAvSalaireDemDate;
    
     private String employerAvSalaireStatus;
     

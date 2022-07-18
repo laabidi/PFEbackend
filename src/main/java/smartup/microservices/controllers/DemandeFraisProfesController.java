@@ -21,7 +21,7 @@ import smartup.microservices.services.DemandeFraisProfesServiceImpl;
 
 @RestController
 @CrossOrigin
-@RequestMapping
+@RequestMapping("/api/smartrh")
 public class DemandeFraisProfesController {
 
 	@Autowired

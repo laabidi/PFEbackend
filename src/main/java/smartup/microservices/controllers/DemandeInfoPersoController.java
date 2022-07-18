@@ -20,7 +20,7 @@ import smartup.microservices.services.DemandeInfoPersoServiceImpl;
 
 @RestController
 @CrossOrigin
-@RequestMapping
+@RequestMapping("/api/smartrh")
 public class DemandeInfoPersoController {
 	@Autowired
 	DemandeInfoPersoServiceImpl dips;

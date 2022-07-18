@@ -23,7 +23,7 @@ import smartup.microservices.services.DemandeAvanceSalaireServiceImpl;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/smartRH")
+@RequestMapping("/api/smartrh")
 public class DemandeAvanceSalaireController {
 	@Autowired
 	DemandeAvanceSalaireServiceImpl dass;

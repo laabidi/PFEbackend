@@ -10,8 +10,9 @@ public interface DemandeCongeService {
 	public DemandeConge addDemandeConge(DemandeConge dc);
 	public List<DemandeConge> retrieveAllDemandeConges();
 	public DemandeConge updateDemandeConge(DemandeConge e);
-	public Optional<DemandeConge> retrieveDemandeConge(String id);
+	public Optional<DemandeConge> retrieveDemandeConge(int id);
 	public DemandeConge getDemandeCongeById(int id);
 	public void deleteDemandeCongeById(int id);
+	void acceptedemandeById(int id);
 
 }

@@ -1,10 +1,9 @@
 package smartup.microservices.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,11 +25,11 @@ public class DemandeAttesTravail implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="employer_att_travail_dem_id")
+   
     private int employerAttesTravailDemId;
-    @Column(name="employer_att_travail_dem_date")
-    private LocalDate employerAttesTravailDemDate;
-    @Column(name="employer_att_travail_status")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private Date employerAttesTravailDemDate;
+    
     private String employerAttesTravailStatus;
     
     @ManyToOne(fetch = FetchType.LAZY)

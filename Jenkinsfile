@@ -1,6 +1,6 @@
 pipeline{
 	environment{
-		registry = 'laabidimohamed/laabidimohamed'
+		registry = 'laabidi91/laabidi91'
 		registryCredential= 'dockerHub'
 		dockerImage = ''
 	}
@@ -65,7 +65,7 @@ stage('Building our image') {
   stage('Deploy our image') {
     steps {
        script {
-         docker.withRegistry( '', registryCredential) {
+       docker.withRegistry( '', registryCredential) {
             dockerImage.push() 
          }
        } 
@@ -78,5 +78,12 @@ stage('Building our image') {
     }
   }
 }
+post {
+    always {
+       mail to: 'laabidi.mohamed120@gmail.com',
+          subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
+          body: "${env.BUILD_URL} has result ${currentBuild.result}"
+    }
+  }
 
 }

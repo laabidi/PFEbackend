@@ -21,7 +21,7 @@ import smartup.microservices.services.DemandeAttesTravailServiceImpl;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/smartRH")
+@RequestMapping("/api/smartrh")
 public class DemandeAttesTravailController {
 	
 	@Autowired

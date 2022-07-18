@@ -1,5 +1,6 @@
 package smartup.microservices.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import smartup.microservices.entities.DemandeConge;
+import smartup.microservices.entities.NotificationDemande;
 import smartup.microservices.repositories.DemandeCongeRepository;
+import smartup.microservices.repositories.NotificationDemandeRepository;
 
 @Service
 public class DemandeCongeServiceImpl implements DemandeCongeService{
@@ -18,13 +21,14 @@ public class DemandeCongeServiceImpl implements DemandeCongeService{
 	
 	@Autowired
 	DemandeCongeRepository drep;
-	
+	@Autowired
+	NotificationDemandeRepository ndr;
 	
 	private static final Logger l = LogManager.getLogger(DemandeCongeServiceImpl.class);
 
 	@Override
 	public DemandeConge addDemandeConge(DemandeConge dc) {
-		
+		dc.setEmployerCongesDemStatut("0");
 		return drep.save(dc);
 	}
 
@@ -44,9 +48,9 @@ public class DemandeCongeServiceImpl implements DemandeCongeService{
 	}
 
 	@Override
-	public Optional<DemandeConge> retrieveDemandeConge(String id) {
+	public Optional<DemandeConge> retrieveDemandeConge(int id) {
 		
-		Optional<DemandeConge> demandeConge = drep.findById(Long.parseLong(id));
+		Optional<DemandeConge> demandeConge = drep.findById(id);
 		 l.log(Level.INFO, () ->"demandeConge : " +demandeConge);
 			
 		return demandeConge;
@@ -54,7 +58,7 @@ public class DemandeCongeServiceImpl implements DemandeCongeService{
 
 	@Override
 	public DemandeConge getDemandeCongeById(int id) {
-		Optional<DemandeConge> d = drep.findById(1L);
+		Optional<DemandeConge> d = drep.findById(id);
 		DemandeConge dc = new DemandeConge();
 		if (d.isPresent()) {
 			  dc= d.get();
@@ -63,9 +67,22 @@ public class DemandeCongeServiceImpl implements DemandeCongeService{
 	}
 
 	@Override
+	public void acceptedemandeById(int id) {
+		DemandeConge d = drep.findById(id).get();
+		d.setEmployerCongesDemStatut("1");
+		NotificationDemande n=new NotificationDemande();
+		n.setBody("Votre  demande de congé de "+d.getEmployerCongesDemDateDeb() +"a "+d.getEmployerCongesDemDateFin() +"est confirmée !" );
+		n.setTitre("Demande accepté");
+		n.setDate(new Date());
+		
+		drep.save(d);
+		ndr.save(n);
+	}
+	
+	@Override
 	public void deleteDemandeCongeById(int id) {
 		{
-			Optional<DemandeConge> d = drep.findById(1L);
+			Optional<DemandeConge> d = drep.findById(id);
 
 			DemandeConge DemandeConge = new DemandeConge();
 			if (d.isPresent()) {
