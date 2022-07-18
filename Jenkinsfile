@@ -38,24 +38,7 @@ pipeline{
 
 		
 
-		stage("Test,Build"){
-   			 steps{
-     				 bat """mvn clean package"""
-   			 }
-   		  }
-
-
- 		 stage("Sonar"){
-  			  steps{
-    				  bat """mvn sonar:sonar"""
-   			 }
-   		  }
-
-		stage ("Deploiement dans Nexus..."){
-			steps{
-				bat """mvn clean package -Dmaven.test.failure.ignore=true deploy:deploy-file -DgroupId=smartup.microservices -DartifactId=portailRH -Dversion=1.0 -DgeneratePom=true -Dpackaging=jar -DrepositoryId=deploymentRepo -Durl=http://localhost:8081/repository/maven-releases/ -Dfile=target/portailRH-1.0.jar"""
-			}
-		}
+		
 stage('Building our image') {
     steps {
        script {
