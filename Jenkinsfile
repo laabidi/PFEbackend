@@ -68,5 +68,5 @@ pipeline{
             Thank you''', cc: '', from: '', replyTo: '', subject: 'Jenking Job Launched', to: 'anis.ellouz1@esprit.tn'
     }
 }
-
+}
  }
