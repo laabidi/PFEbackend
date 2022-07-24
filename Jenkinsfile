@@ -64,10 +64,10 @@ pipeline{
 
  post{
 		success{
-			emailext body: 'Build success', subject: 'Jenkins', to:'mohamed.laabidi@esprit.tn'
+			emailext body: 'Build success', subject: 'Jenkins', to:'laabidi.mohamed120@gmail.com'
 		}
 		failure{
-			emailext body: 'Build failure', subject: 'Jenkins', to:'mohamed.laabidi@esprit.tn'
+			emailext body: 'Build failure', subject: 'Jenkins', to:'laabidi.mohamed120@gmail.com'
 		}
 	}
 }
