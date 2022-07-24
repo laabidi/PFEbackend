@@ -45,15 +45,15 @@ pipeline{
     }
   }
 
-  stage('Deploy our image') {
-    steps {
-       script {
-         docker.withRegistry( '', registryCredential) {
-            dockerImage.push() 
-         }
-       } 
-    }
-  }
+ // stage('Deploy our image') {
+   // steps {
+      // script {
+      //   docker.withRegistry( '', registryCredential) {
+      //      dockerImage.push() 
+      //   }
+     //  } 
+   // }
+  //}
 
   stage('Cleaning up') {
     steps { 
@@ -62,11 +62,12 @@ pipeline{
   }
 }
 
- post {
-    always {
-       mail to: 'mohamed.laabidi@esprit.tn',
-          subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
-          body: "${env.BUILD_URL} has result ${currentBuild.result}"
-    }
-  }
+ post{
+		success{
+			emailext body: 'Build success', subject: 'Jenkins', to:'mohamed.laabidi@esprit.tn'
+		}
+		failure{
+			emailext body: 'Build failure', subject: 'Jenkins', to:'mohamed.laabidi@esprit.tn'
+		}
+	}
 }
