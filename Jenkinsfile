@@ -62,7 +62,7 @@ pipeline{
   }
 }
 
- stage('Email Notification') {
+  stage('Email Notification') {
 	    mail bcc: '', body: '''Hello Anis, this is a Jenkins Pipeline alert for launching Cycle
 
             Thank you''', cc: '', from: '', replyTo: '', subject: 'Jenking Job Launched', to: 'anis.ellouz1@esprit.tn'
