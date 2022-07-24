@@ -37,29 +37,36 @@ pipeline{
 		}
 
 		
- 		stage('Build image') {
-        /* This builds the actual image */
-
-       		 app = docker.build("laabidimohamed/laabidimohamed")
-    	}
-
-    	stage('Test image') {
-        
-        	app.inside {
-            	echo "Tests passed"
-        }
+ 	 stage('Building our image') {
+    steps {
+       script {
+          dockerImage= docker.build registry + ":$BUILD_NUMBER" 
+       }
     }
+  }
 
-    	stage('Push image') {
-        /* 
-			You would need to first register with DockerHub before you can push images to your account
-		*/
-        	docker.withRegistry('https://registry.hub.docker.com', 'laabidimohamed') {
-            	app.push("${env.BUILD_NUMBER}")
-            		app.push("latest")
-            } 
-                		echo "Trying to Push Docker Build to DockerHub"
+  stage('Deploy our image') {
+    steps {
+       script {
+         docker.withRegistry( '', registryCredential) {
+            dockerImage.push() 
+         }
+       } 
     }
-   }
+  }
 
+  stage('Cleaning up') {
+    steps { 
+      bat "docker rmi $registry:$BUILD_NUMBER" 
+    }
+  }
+}
+
+ post {
+    always {
+       mail to: 'laabidi.mohamed120@gmail.com',
+          subject: "Status of pipeline: ${currentBuild.fullDisplayName}",
+          body: "${env.BUILD_URL} has result ${currentBuild.result}"
+    }
+  }
 }
