@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -50,6 +48,8 @@ public class DemandeConge implements Serializable {
     @Column(name="employer_conges_dem_statut")
     private String employerCongesDemStatut;
     
+    @Column(name="active")
+    private String active ;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	@Column(name="employer_conges_dem_date")

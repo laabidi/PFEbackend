@@ -9,8 +9,13 @@ public interface DemandeInfoPersoSevice {
 	public DemandeInfoPerso addDemandeInfoPerso(DemandeInfoPerso dc);
 	public List<DemandeInfoPerso> retrieveAllDemandeInfoPersos();
 	public DemandeInfoPerso updateDemandeInfoPerso(DemandeInfoPerso e);
-	public Optional<DemandeInfoPerso> retrieveDemandeInfoPerso(String id);
-	public DemandeInfoPerso getDemandeInfoPersoById(int id);
+	public Optional<DemandeInfoPerso> retrieveDemandeInfoPerso(Long id);
+	public DemandeInfoPerso getDemandeInfoPersoById(Long id);
 	public void deleteDemandeInfoPersoById(int id);
+	void acceptedemandeById(Long id);
+	DemandeInfoPerso activerDemandeInfoPerso(Long id);
+	DemandeInfoPerso desactiverDemandeInfoPerso(Long id);
+	List<DemandeInfoPerso> getDemandeInfoPersoListActive();
+    List<DemandeInfoPerso> getDemandeInfoPersoListDesactive();
 
 }

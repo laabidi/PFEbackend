@@ -28,9 +28,11 @@ public class DemandeCongeServiceImpl implements DemandeCongeService{
 
 	@Override
 	public DemandeConge addDemandeConge(DemandeConge dc) {
-		dc.setEmployerCongesDemStatut("0");
+		dc.setEmployerCongesDemDate(new Date());
+		dc.setActive("1");
 		return drep.save(dc);
 	}
+	
 
 	@Override
 	public List<DemandeConge> retrieveAllDemandeConges() {
@@ -39,13 +41,24 @@ public class DemandeCongeServiceImpl implements DemandeCongeService{
 		l.log(Level.INFO, () ->"DemandeConge : " +DemandeConges);
 	return DemandeConges;
 }
-	
+	//@Override
+    //public DemandeConge updateDemandeConge(int id, DemandeConge dc) {
+        //getDemandeCongeById(id);
+        //dc.setEmployerInfosRhDemTypeId(id);
+       // return drep.save(dc);
+    //}
 
-	@Override
-	public DemandeConge updateDemandeConge(DemandeConge dc) {
+	//@Override
+	//public DemandeConge updateDemandeConge(DemandeConge dc) {
 		
-		return drep.save(dc) ;
-	}
+		//return drep.save(dc) ;
+	//}
+	 @Override
+	    public DemandeConge updateDemandeConge(int id, DemandeConge dc) {
+	        getDemandeCongeById(id);
+	        dc.setEmployerInfosRhDemTypeId(id);
+	        return drep.save(dc);
+	    }
 
 	@Override
 	public Optional<DemandeConge> retrieveDemandeConge(int id) {
@@ -58,6 +71,7 @@ public class DemandeCongeServiceImpl implements DemandeCongeService{
 
 	@Override
 	public DemandeConge getDemandeCongeById(int id) {
+		//return drep.findById(id).get();
 		Optional<DemandeConge> d = drep.findById(id);
 		DemandeConge dc = new DemandeConge();
 		if (d.isPresent()) {
@@ -91,6 +105,30 @@ public class DemandeCongeServiceImpl implements DemandeCongeService{
 			
 			drep.delete(DemandeConge);
 		}
+	}
+
+	@Override
+	public DemandeConge activerDemandeConge(int id) {
+		DemandeConge p=drep.findById(id).get();
+        p.setActive("1");
+        return drep.save(p);	}
+
+	@Override
+	public DemandeConge desactiverDemandeConge(int id) {
+		 DemandeConge p=drep.findById(id).get();
+	        p.setActive("0");
+	        return drep.save(p);
+	}
+
+	@Override
+	public List<DemandeConge> getDemandeCongeListActive() {
+		return (List<DemandeConge>)
+				drep.findDemandeCongeByActive(1);
+	}
+
+	@Override
+	public List<DemandeConge> getDemandeCongeListDesactive() {
+		return (List<DemandeConge>)drep.findDemandeCongeByActive(0);
 	}
 
 }

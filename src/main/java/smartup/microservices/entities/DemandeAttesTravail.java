@@ -26,12 +26,12 @@ public class DemandeAttesTravail implements Serializable {
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
    
-    private int employerAttesTravailDemId;
+    private Long employerAttesTravailDemId;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date employerAttesTravailDemDate;
     
     private String employerAttesTravailStatus;
-    
+    private String active;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
     private Utilisateur utilisateur;

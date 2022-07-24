@@ -1,5 +1,6 @@
 package smartup.microservices.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import smartup.microservices.entities.DemandeFraisProfes;
+import smartup.microservices.entities.DemandeInfoPerso;
+import smartup.microservices.entities.DemandeFraisProfes;
+import smartup.microservices.entities.NotificationDemande;
 import smartup.microservices.repositories.DemandeFraisProfesRepository;
+import smartup.microservices.repositories.NotificationDemandeRepository;
 
 
 @Service
@@ -19,7 +24,11 @@ public class DemandeFraisProfesServiceImpl implements DemandeFraisProfesService{
 	@Autowired
 	DemandeFraisProfesRepository drep;
 
+	@Autowired
+	NotificationDemandeRepository ndr;
+	
 	private static final Logger l = LogManager.getLogger(DemandeFraisProfesServiceImpl.class);
+
 	@Override
 	public DemandeFraisProfes addDemandeFraisProfes(DemandeFraisProfes dat) {
 		
@@ -39,15 +48,15 @@ public class DemandeFraisProfesServiceImpl implements DemandeFraisProfesService{
 	}
 
 	@Override
-	public Optional<DemandeFraisProfes> retrieveDemandeFraisProfes(String id) {
-		Optional<DemandeFraisProfes> DemandeFraisProfes = drep.findById(Long.parseLong(id));
+	public Optional<DemandeFraisProfes> retrieveDemandeFraisProfes(Long id) {
+		Optional<DemandeFraisProfes> DemandeFraisProfes = drep.findById((id));
 		 l.log(Level.INFO, () ->"DemandeFraisProfes : " +DemandeFraisProfes);
 			
 		return DemandeFraisProfes;
 	}
 
 	@Override
-	public DemandeFraisProfes getDemandeFraisProfesById(int id) {
+	public DemandeFraisProfes getDemandeFraisProfesById(Long id) {
 		Optional<DemandeFraisProfes> d = drep.findById(1L);
 		DemandeFraisProfes dat = new DemandeFraisProfes();
 		if (d.isPresent()) {
@@ -70,5 +79,45 @@ public class DemandeFraisProfesServiceImpl implements DemandeFraisProfesService{
 		}
 	}
 
+	@Override
+	public void acceptedemandeById(Long id) {
+		DemandeFraisProfes d = drep.findById(id).get();
+		d.setEmployerFraisDemId(1);
+		NotificationDemande n=new NotificationDemande();
+		n.setBody("Votre  demande information personnelle de "+d.getEmployerFraisDemDate() +"est confirmée !" );
+		n.setTitre("Demande accepté");
+		n.setDate(new Date());
+		
+		drep.save(d);
+		ndr.save(n);
+	}
+	
 
+	@Override
+	public DemandeFraisProfes activerDemandeFraisProfes(Long id) {
+		DemandeFraisProfes p=drep.findById(id).get();
+        p.setActive("1");
+        return drep.save(p);
+	}
+
+	@Override
+	public DemandeFraisProfes desactiverDemandeFraisProfes(Long id) {
+		 DemandeFraisProfes p=drep.findById(id).get();
+	        p.setActive("0");
+	        return drep.save(p);
+	}
+
+	@Override
+	public List<DemandeFraisProfes> getDemandeFraisProfesListActive() {
+		return (List<DemandeFraisProfes>)
+				drep.findDemandeFraisProfesByActive(1);
+	}
+
+	@Override
+	public List<DemandeFraisProfes> getDemandeFraisProfesListDesactive() {
+		return (List<DemandeFraisProfes>)drep.findDemandeFraisProfesByActive(0);
+
+}
+
+	
 }

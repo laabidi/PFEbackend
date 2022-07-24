@@ -22,26 +22,17 @@ public class DemandeInfoPerso implements Serializable{
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	
     private int employerInfosPersoRhDemLibelle;
-	
 	private String employerInfosPersoRhDemMatricule;
-	
 	private String employerInfosPersoRhDemUsername;
-	
 	private String employerInfosPersoRhDemAdress;
-	
 	private String employerInfosPersoRhDemCity;
-	
 	private String employerInfosPersoRhDemCountry;
-	
-	private int employerInfosPersoRhDemCodePostal;
-	
-	private int employerInfosPersoRhDemPhone;
-	
+	private int employerInfosPersoRhDemCodePostal;	
+	private int employerInfosPersoRhDemPhone;	
 	private String employerInfosPersoRhDemEmail;
-	
 	private String employerInfosPersoRhDemBanque;
-	
 	private int employerInfosPersoRhDemRib;
+	private int active;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
