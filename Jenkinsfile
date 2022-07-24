@@ -62,12 +62,8 @@ pipeline{
   }
 }
 
- post{
-		success{
-			emailext body: 'Build success', subject: 'Jenkins', to:'laabidi.mohamed120@gmail.com'
-		}
-		failure{
-			emailext body: 'Build failure', subject: 'Jenkins', to:'laabidi.mohamed120@gmail.com'
-		}
-	}
-}
+ stage('Email Notification') {
+	    mail bcc: '', body: '''Hello Anis, this is a Jenkins Pipeline alert for launching Cycle
+
+            Thank you''', cc: '', from: '', replyTo: '', subject: 'Jenking Job Launched', to: 'anis.ellouz1@esprit.tn'
+    }}
