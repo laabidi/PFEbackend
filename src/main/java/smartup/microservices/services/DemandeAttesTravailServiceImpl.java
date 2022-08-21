@@ -22,6 +22,7 @@ public class DemandeAttesTravailServiceImpl implements DemandeAttesTravailServic
 	DemandeAttestTravailRepository drep;
 	@Autowired
 	NotificationDemandeRepository ndr;
+	
 	private static final Logger l = LogManager.getLogger(DemandeAttesTravailServiceImpl.class);
 	@Override
 	public DemandeAttesTravail addDemandeAttesTravail(DemandeAttesTravail dat) {
@@ -36,10 +37,13 @@ public class DemandeAttesTravailServiceImpl implements DemandeAttesTravailServic
 	return DemandeAttesTravails;
 	}
 
+	
 	@Override
-	public DemandeAttesTravail updateDemandeAttesTravail(DemandeAttesTravail dat) {
-		return drep.save(dat) ;
-	}
+    public DemandeAttesTravail updateDemandeAttesTravail(Long id, DemandeAttesTravail dat ) {
+        getDemandeAttesTravailById(id);
+        dat.setEmployerAttesTravailDemId(id);
+        return drep.save(dat);
+    }
 
 	@Override
 	public Optional<DemandeAttesTravail> retrieveDemandeAttesTravail(Long id) {
@@ -51,7 +55,7 @@ public class DemandeAttesTravailServiceImpl implements DemandeAttesTravailServic
 
 	@Override
 	public DemandeAttesTravail getDemandeAttesTravailById(Long id) {
-		Optional<DemandeAttesTravail> d = drep.findById(1L);
+		Optional<DemandeAttesTravail> d = drep.findById(id);
 		DemandeAttesTravail dat = new DemandeAttesTravail();
 		if (d.isPresent()) {
 			  dat= d.get();
@@ -60,9 +64,9 @@ public class DemandeAttesTravailServiceImpl implements DemandeAttesTravailServic
 	}
 
 	@Override
-	public void deleteDemandeAttesTravailById(int id) {
+	public void deleteDemandeAttesTravailById(Long id) {
 		{
-			Optional<DemandeAttesTravail> d = drep.findById(1L);
+			Optional<DemandeAttesTravail> d = drep.findById(id);
 
 			DemandeAttesTravail DemandeAttesTravail = new DemandeAttesTravail();
 			if (d.isPresent()) {
@@ -78,7 +82,7 @@ public class DemandeAttesTravailServiceImpl implements DemandeAttesTravailServic
 		DemandeAttesTravail d = drep.findById(id).get();
 		d.setEmployerAttesTravailStatus("1");
 		NotificationDemande n=new NotificationDemande();
-		n.setBody("Votre  demande de congé de "+d.getEmployerAttesTravailDemDate() +"est confirmée !" );
+		n.setBody("Votre  demande Attestation de travail  de "+d.getEmployerAttesTravailDemDate() +"est confirmée !" );
 		n.setTitre("Demande accepté");
 		n.setDate(new Date());
 		
@@ -90,14 +94,14 @@ public class DemandeAttesTravailServiceImpl implements DemandeAttesTravailServic
 	@Override
 	public DemandeAttesTravail activerDemandeAttesTravail(Long id) {
 		DemandeAttesTravail p=drep.findById(id).get();
-        p.setActive("1");
+        p.setActive(1);
         return drep.save(p);
 	}
 
 	@Override
 	public DemandeAttesTravail desactiverDemandeAttesTravail(Long id) {
 		 DemandeAttesTravail p=drep.findById(id).get();
-	        p.setActive("0");
+	        p.setActive(0);
 	        return drep.save(p);
 	}
 
@@ -112,4 +116,6 @@ public class DemandeAttesTravailServiceImpl implements DemandeAttesTravailServic
 		return (List<DemandeAttesTravail>)drep.findDemandeAttesTravailByActive(0);
 
 }
+
+	
 }

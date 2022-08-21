@@ -1,6 +1,6 @@
 package smartup.microservices;
 
-
+import java.util.List;
 
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -12,33 +12,41 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.expression.ParseException;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import smartup.microservices.entities.DemandeAttesTravail;
-import smartup.microservices.repositories.DemandeAttestTravailRepository;
-import smartup.microservices.services.DemandeAttesTravailServiceImpl;
+import smartup.microservices.entities.DemandeInfoPerso;
+import smartup.microservices.repositories.DemandeInfoPersoRepository;
 import smartup.microservices.services.DemandeCongeServiceImpl;
+import smartup.microservices.services.DemandeInfoPersoServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-class DemandeAttesTravailTest {
-
+class DemandeInfoPersoTest {
 private static final Logger l = LogManager.getLogger(DemandeCongeServiceImpl.class);
 	
 	@Autowired
-	DemandeAttesTravailServiceImpl dats;
+	DemandeInfoPersoServiceImpl dips;
 	@Autowired
-	DemandeAttestTravailRepository drep;
+	DemandeInfoPersoRepository drep;
 	
 	@Test
-	 void addDemandeCongeTest()throws ParseException{
+	 void addDemandeInfoPersoTest()throws ParseException{
 			
 		
-	  DemandeAttesTravail e = new DemandeAttesTravail();
-	  dats.addDemandeAttesTravail(e);
-	l.log(Level.INFO, () ->"retrieve DemandeAttestTravail : " +e);
+		DemandeInfoPerso e = new DemandeInfoPerso();
+	  dips.addDemandeInfoPerso(e);
+	l.log(Level.INFO, () ->"retrieve DemandeInfoPerso : " +e);
 	
 
 	}
+	
+	@Test
+		void testRetrieveAllDemandeInfoPersos() {
+			List<DemandeInfoPerso> d = dips.retrieveAllDemandeInfoPersos();
+		
+			l.log(Level.INFO, () ->"retrieve Demande Info Perso : " +d);
+		}
+	  
  
   
   
+
 }

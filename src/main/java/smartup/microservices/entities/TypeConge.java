@@ -18,7 +18,7 @@ public class TypeConge implements Serializable {
 	private static final long serialVersionUID = 1L;
     @Id
     @Column(name="employer_conges_dem_type_id")
-    private int employerCongesDemTypeId;
+    private Long employerCongesDemTypeId;
     @Column(name="employer_conges_dem_dem_type")
     private String employerCongesDemDemType;
     @OneToMany(mappedBy="typeConge")

@@ -31,7 +31,7 @@ public class DemandeAttesTravail implements Serializable {
     private Date employerAttesTravailDemDate;
     
     private String employerAttesTravailStatus;
-    private String active;
+    private int active =1;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
     private Utilisateur utilisateur;

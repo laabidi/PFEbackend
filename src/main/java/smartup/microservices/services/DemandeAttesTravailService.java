@@ -11,10 +11,10 @@ public interface DemandeAttesTravailService {
 	
 	public DemandeAttesTravail addDemandeAttesTravail(DemandeAttesTravail dat);
 	public List<DemandeAttesTravail> retrieveAllDemandeAttesTravails();
-	public DemandeAttesTravail updateDemandeAttesTravail(DemandeAttesTravail dat);
+	public DemandeAttesTravail updateDemandeAttesTravail (Long id, DemandeAttesTravail dat);
 	public Optional<DemandeAttesTravail> retrieveDemandeAttesTravail(Long id);
 	public DemandeAttesTravail getDemandeAttesTravailById(Long id);
-	public void deleteDemandeAttesTravailById(int id);
+	public void deleteDemandeAttesTravailById(Long id);
 	void acceptedemandeById(Long id);
 	DemandeAttesTravail activerDemandeAttesTravail(Long id);
 	DemandeAttesTravail desactiverDemandeAttesTravail(Long id);

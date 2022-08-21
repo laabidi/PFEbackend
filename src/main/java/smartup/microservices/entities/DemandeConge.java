@@ -27,8 +27,8 @@ public class DemandeConge implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name="employer_infos_rh_dem_type_id")
-    private int employerInfosRhDemTypeId;
+  
+    private Long employerInfosRhDemTypeId;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @Column(name="employer_conges_dem_date_deb")
     private Date employerCongesDemDateDeb;
@@ -49,7 +49,7 @@ public class DemandeConge implements Serializable {
     private String employerCongesDemStatut;
     
     @Column(name="active")
-    private String active ;
+    private int active=1 ;
     
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
 	@Column(name="employer_conges_dem_date")

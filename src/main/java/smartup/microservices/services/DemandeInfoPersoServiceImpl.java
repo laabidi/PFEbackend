@@ -63,9 +63,9 @@ public class DemandeInfoPersoServiceImpl implements DemandeInfoPersoSevice {
 	}
 
 	@Override
-	public void deleteDemandeInfoPersoById(int id) {
+	public void deleteDemandeInfoPersoById(Long id) {
 		{
-			Optional<DemandeInfoPerso> d = dipr.findById(1L);
+			Optional<DemandeInfoPerso> d = dipr.findById(id);
 
 			DemandeInfoPerso DemandeInfoPerso = new DemandeInfoPerso();
 			if (d.isPresent()) {
@@ -79,7 +79,7 @@ public class DemandeInfoPersoServiceImpl implements DemandeInfoPersoSevice {
 	@Override
 	public void acceptedemandeById(Long id) {
 		DemandeInfoPerso d = dipr.findById(id).get();
-		d.setEmployerInfosPersoRhDemLibelle(1);
+		d.setEmployerInfosPersoRhDemLibelle(id);
 		NotificationDemande n=new NotificationDemande();
 		n.setBody("Votre  demande information personnelle de "+d.getEmployerInfosPersoRhDemUsername() +"est confirmée !" );
 		n.setTitre("Demande accepté");

@@ -17,7 +17,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DemandeAvanceSalaireDto {
 	
-	private int employerAvSalaireDemId;  
+	private Long employerAvSalaireDemId;  
     private float employerAvSalaireDemMontant;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date employerAvSalaireDemDate;

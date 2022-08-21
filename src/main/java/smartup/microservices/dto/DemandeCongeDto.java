@@ -17,7 +17,7 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DemandeCongeDto {
 	
-    private int employerInfosRhDemTypeId;
+    private Long employerInfosRhDemTypeId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date employerCongesDemDateDeb;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")

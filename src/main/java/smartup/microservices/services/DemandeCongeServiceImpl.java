@@ -29,7 +29,7 @@ public class DemandeCongeServiceImpl implements DemandeCongeService{
 	@Override
 	public DemandeConge addDemandeConge(DemandeConge dc) {
 		dc.setEmployerCongesDemDate(new Date());
-		dc.setActive("1");
+		dc.setActive(1);
 		return drep.save(dc);
 	}
 	
@@ -41,47 +41,24 @@ public class DemandeCongeServiceImpl implements DemandeCongeService{
 		l.log(Level.INFO, () ->"DemandeConge : " +DemandeConges);
 	return DemandeConges;
 }
-	//@Override
-    //public DemandeConge updateDemandeConge(int id, DemandeConge dc) {
-        //getDemandeCongeById(id);
-        //dc.setEmployerInfosRhDemTypeId(id);
-       // return drep.save(dc);
-    //}
-
-	//@Override
-	//public DemandeConge updateDemandeConge(DemandeConge dc) {
-		
-		//return drep.save(dc) ;
-	//}
+	
 	 @Override
-	    public DemandeConge updateDemandeConge(int id, DemandeConge dc) {
+	    public DemandeConge updateDemandeConge(Long id, DemandeConge dc) {
 	        getDemandeCongeById(id);
 	        dc.setEmployerInfosRhDemTypeId(id);
 	        return drep.save(dc);
 	    }
 
 	@Override
-	public Optional<DemandeConge> retrieveDemandeConge(int id) {
+	public DemandeConge getDemandeCongeById(Long id) {
 		
-		Optional<DemandeConge> demandeConge = drep.findById(id);
-		 l.log(Level.INFO, () ->"demandeConge : " +demandeConge);
-			
-		return demandeConge;
+		 return drep.findById(id).get();
 	}
 
-	@Override
-	public DemandeConge getDemandeCongeById(int id) {
-		//return drep.findById(id).get();
-		Optional<DemandeConge> d = drep.findById(id);
-		DemandeConge dc = new DemandeConge();
-		if (d.isPresent()) {
-			  dc= d.get();
-			}
-		return dc;
-	}
+	
 
 	@Override
-	public void acceptedemandeById(int id) {
+	public void acceptedemandeById(Long id) {
 		DemandeConge d = drep.findById(id).get();
 		d.setEmployerCongesDemStatut("1");
 		NotificationDemande n=new NotificationDemande();
@@ -94,7 +71,7 @@ public class DemandeCongeServiceImpl implements DemandeCongeService{
 	}
 	
 	@Override
-	public void deleteDemandeCongeById(int id) {
+	public void deleteDemandeCongeById(Long id) {
 		{
 			Optional<DemandeConge> d = drep.findById(id);
 
@@ -108,18 +85,25 @@ public class DemandeCongeServiceImpl implements DemandeCongeService{
 	}
 
 	@Override
-	public DemandeConge activerDemandeConge(int id) {
+	public DemandeConge activerDemandeConge(Long id) {
 		DemandeConge p=drep.findById(id).get();
-        p.setActive("1");
+        p.setActive(1);
         return drep.save(p);	}
 
+	 
+	
+	
 	@Override
-	public DemandeConge desactiverDemandeConge(int id) {
+	public DemandeConge desactiverDemandeConge(Long id) {
 		 DemandeConge p=drep.findById(id).get();
-	        p.setActive("0");
+	        p.setActive(0);
 	        return drep.save(p);
 	}
+	 
+	
 
+	
+	
 	@Override
 	public List<DemandeConge> getDemandeCongeListActive() {
 		return (List<DemandeConge>)
@@ -130,5 +114,7 @@ public class DemandeCongeServiceImpl implements DemandeCongeService{
 	public List<DemandeConge> getDemandeCongeListDesactive() {
 		return (List<DemandeConge>)drep.findDemandeCongeByActive(0);
 	}
+
+
 
 }

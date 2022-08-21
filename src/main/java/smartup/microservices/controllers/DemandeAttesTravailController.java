@@ -51,30 +51,30 @@ public class DemandeAttesTravailController {
 	        return ResponseEntity.status(HttpStatus.OK).body(DemandeAttesTravailDtos);
 	    }
 	 @PutMapping("/DemandeAttesTravailsActives/{DemandeAttesTravailId}")
-	    public Object ActiverDemandeAttesTravail (@Validated @RequestBody DemandeAttesTravailDto DemandeAttesTravailDto , @PathVariable Long idDemande) {
+	    public Object ActiverDemandeAttesTravail (@Validated @RequestBody DemandeAttesTravailDto DemandeAttesTravailDto , @PathVariable Long DemandeAttesTravailId) {
 			DemandeAttesTravail DemandeAttesTravail = modelMapper.map(DemandeAttesTravailDto,DemandeAttesTravail.class);
-			DemandeAttesTravail= dats.activerDemandeAttesTravail(idDemande);
+			DemandeAttesTravail= dats.activerDemandeAttesTravail(DemandeAttesTravailId);
 	        DemandeAttesTravailDto = modelMapper.map(DemandeAttesTravail,DemandeAttesTravailDto.class);
 	        return ResponseEntity.status(HttpStatus.CREATED).body(DemandeAttesTravailDto);
 
 	    }
 
 	    @PutMapping("/DemandeAttesTravailsDesactives/{DemandeAttesTravailId}")
-	    public Object DesactiverDemandeAttesTravail (@Validated @RequestBody DemandeAttesTravailDto DemandeAttesTravailDto , @PathVariable Long idDemande) {
+	    public Object DesactiverDemandeAttesTravail (@Validated @RequestBody DemandeAttesTravailDto DemandeAttesTravailDto , @PathVariable Long DemandeAttesTravailId) {
 	    	DemandeAttesTravail DemandeAttesTravail = modelMapper.map(DemandeAttesTravailDto,DemandeAttesTravail.class);
-	    	DemandeAttesTravail= dats.desactiverDemandeAttesTravail(idDemande);
+	    	DemandeAttesTravail= dats.desactiverDemandeAttesTravail(DemandeAttesTravailId);
 	        DemandeAttesTravailDto = modelMapper.map(DemandeAttesTravail,DemandeAttesTravailDto.class);
 	        return ResponseEntity.status(HttpStatus.CREATED).body(DemandeAttesTravailDto);
 
 	    }
 
-		@PostMapping("/acceptedemande/{DemandeAttesTravailId}")
+		@PostMapping("/accepteDemandeAttesTravail/{DemandeAttesTravailId}")
 		@ResponseBody
 		public void acceptedemandeById(@PathVariable Long DemandeAttesTravailId) {
 			dats.acceptedemandeById(DemandeAttesTravailId);
 		}
 	 
-	@PostMapping("/add-DemandeAttesTravail")
+	@PostMapping("/addDemandeAttesTravail")
 	@ResponseBody
 	public Object addDemandeAttesTravail (@RequestBody DemandeAttesTravailDto datDto){
 		DemandeAttesTravail dat = modelMapper.map(datDto, DemandeAttesTravail.class);
@@ -86,20 +86,17 @@ public class DemandeAttesTravailController {
 	
 	
 	
-	@GetMapping("/retrieve-all-DemandeAttesTravail")
+	@GetMapping("/retrieveAllDemandeAttesTravail")
 	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@ResponseBody
 	public List<DemandeAttesTravail> getDemandeAttesTravails() {
-		List<DemandeAttesTravail> list = dats.retrieveAllDemandeAttesTravails();
-		return list;
+		return dats.retrieveAllDemandeAttesTravails();
 		}
 	
 	
-	@GetMapping("/retrieve-DemandeAttesTravail/{employerAttesTravailDemId}")
+	@GetMapping("/retrieveDemandeAttesTravail/{employerAttesTravailDemId}")
 	@ResponseBody
-	//public Optional<DemandeAttesTravail> retrieveDemandeAttesTravail(@PathVariable("employerAttesTravailDemId") Long DemandeAttesTravailId){
-	//	return dats.retrieveDemandeAttesTravail(DemandeAttesTravailId);
-	public Object retrieveDemandeAttesTravail(@PathVariable ("employerAttesTravailDemId")Long DemandeAttesTravailId ) {
+	public Object retrieveDemandeAttesTravail(@PathVariable ("employerAttesTravailDemId") Long DemandeAttesTravailId ) {
 		DemandeAttesTravail dat = dats.getDemandeAttesTravailById(DemandeAttesTravailId) ;
 		DemandeAttesTravailDto datDto= modelMapper.map(dat, DemandeAttesTravailDto.class);
     return ResponseEntity.status(HttpStatus.OK).body(datDto);
@@ -107,21 +104,21 @@ public class DemandeAttesTravailController {
 	
 	
 	
-	@PutMapping("/update-DemandeAttesTravail/{employerAttesTravailDemId}")
+	@PutMapping("/updateDemandeAttesTravail/{employerAttesTravailDemId}")
 	@ResponseBody
 	 public Object UpdateDemandeAttesTravail (@Validated @RequestBody DemandeAttesTravailDto demandeAttesTravailDto , @PathVariable Long employerAttesTravailDemId) {
 				DemandeAttesTravail demandeAttesTravail = modelMapper.map(demandeAttesTravailDto,DemandeAttesTravail.class);
-				demandeAttesTravail= dats.updateDemandeAttesTravail( demandeAttesTravail);
+				demandeAttesTravail= dats.updateDemandeAttesTravail( employerAttesTravailDemId, demandeAttesTravail);
 		      demandeAttesTravailDto = modelMapper.map(demandeAttesTravail,DemandeAttesTravailDto.class);
 		       return ResponseEntity.status(HttpStatus.CREATED).body(demandeAttesTravailDto);
 		       }
 
 	
 	
-	@DeleteMapping("/delete-DemandeAttesTravail/{DemandeAttesTravail-id}")
+	@DeleteMapping("/deleteDemandeAttesTravail/{employerAttesTravailDemId}")
 	@ResponseBody
-	public void deleteDemandeAttesTravail(@PathVariable ("DemandeAttesTravail-id") String DemandeAttesTravailId){
-		dats.deleteDemandeAttesTravailById(1);
+	public void deleteDemandeAttesTravail(@PathVariable ("DemandeAttesTravailId") Long employerAttesTravailDemId){
+		dats.deleteDemandeAttesTravailById(employerAttesTravailDemId);
 	}
 
 }

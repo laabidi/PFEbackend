@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import smartup.microservices.entities.DemandeFraisProfes;
-import smartup.microservices.entities.DemandeInfoPerso;
-import smartup.microservices.entities.DemandeFraisProfes;
 import smartup.microservices.entities.NotificationDemande;
 import smartup.microservices.repositories.DemandeFraisProfesRepository;
 import smartup.microservices.repositories.NotificationDemandeRepository;
@@ -66,9 +64,9 @@ public class DemandeFraisProfesServiceImpl implements DemandeFraisProfesService{
 	}
 
 	@Override
-	public void deleteDemandeFraisProfesById(int id) {
+	public void deleteDemandeFraisProfesById(Long id) {
 		{
-			Optional<DemandeFraisProfes> d = drep.findById(1L);
+			Optional<DemandeFraisProfes> d = drep.findById(id);
 
 			DemandeFraisProfes DemandeFraisProfes = new DemandeFraisProfes();
 			if (d.isPresent()) {
@@ -82,7 +80,7 @@ public class DemandeFraisProfesServiceImpl implements DemandeFraisProfesService{
 	@Override
 	public void acceptedemandeById(Long id) {
 		DemandeFraisProfes d = drep.findById(id).get();
-		d.setEmployerFraisDemId(1);
+		d.setEmployerFraisDemId(id);
 		NotificationDemande n=new NotificationDemande();
 		n.setBody("Votre  demande information personnelle de "+d.getEmployerFraisDemDate() +"est confirmée !" );
 		n.setTitre("Demande accepté");
@@ -96,28 +94,31 @@ public class DemandeFraisProfesServiceImpl implements DemandeFraisProfesService{
 	@Override
 	public DemandeFraisProfes activerDemandeFraisProfes(Long id) {
 		DemandeFraisProfes p=drep.findById(id).get();
-        p.setActive("1");
+        p.setActive(1);
         return drep.save(p);
 	}
 
 	@Override
 	public DemandeFraisProfes desactiverDemandeFraisProfes(Long id) {
 		 DemandeFraisProfes p=drep.findById(id).get();
-	        p.setActive("0");
+	        p.setActive(0);
 	        return drep.save(p);
 	}
 
 	@Override
 	public List<DemandeFraisProfes> getDemandeFraisProfesListActive() {
-		return (List<DemandeFraisProfes>)
-				drep.findDemandeFraisProfesByActive(1);
+		return drep.findDemandeFraisProfesByActive(1);
 	}
 
 	@Override
 	public List<DemandeFraisProfes> getDemandeFraisProfesListDesactive() {
-		return (List<DemandeFraisProfes>)drep.findDemandeFraisProfesByActive(0);
+		return drep.findDemandeFraisProfesByActive(0);
 
 }
+
+	
+
+	
 
 	
 }

@@ -50,31 +50,31 @@ public class DemandeFraisProfesController {
 	        List <DemandeFraisProfes> DemandeFraisProfesDtos= modelMapper.map(DemandeFraisProfess,listType);
 	        return ResponseEntity.status(HttpStatus.OK).body(DemandeFraisProfesDtos);
 	    }
-	 @PutMapping("/DemandeFraisProfessActives/{DemandeFraisProfesId}")
-	    public Object ActiverDemandeFraisProfes (@Validated @RequestBody DemandeFraisProfesDto DemandeFraisProfesDto , @PathVariable Long idDemande) {
+	 @PutMapping("/DemandeFraisProfesActives/{DemandeFraisProfesId}")
+	    public Object ActiverDemandeFraisProfes (@Validated @RequestBody DemandeFraisProfesDto DemandeFraisProfesDto , @PathVariable Long DemandeFraisProfesId) {
 			DemandeFraisProfes DemandeFraisProfes = modelMapper.map(DemandeFraisProfesDto,DemandeFraisProfes.class);
-			DemandeFraisProfes= dfps.activerDemandeFraisProfes(idDemande);
+			DemandeFraisProfes= dfps.activerDemandeFraisProfes(DemandeFraisProfesId);
 	        DemandeFraisProfesDto = modelMapper.map(DemandeFraisProfes,DemandeFraisProfesDto.class);
 	        return ResponseEntity.status(HttpStatus.CREATED).body(DemandeFraisProfesDto);
 
 	    }
 
-	    @PutMapping("/DemandeFraisProfessDesactives/{DemandeFraisProfesId}")
-	    public Object DesactiverDemandeFraisProfes (@Validated @RequestBody DemandeFraisProfesDto DemandeFraisProfesDto , @PathVariable Long idDemande) {
+	    @PutMapping("/DemandeFraisProfesDesactives/{DemandeFraisProfesId}")
+	    public Object DesactiverDemandeFraisProfes (@Validated @RequestBody DemandeFraisProfesDto DemandeFraisProfesDto , @PathVariable Long DemandeFraisProfesId) {
 	    	DemandeFraisProfes DemandeFraisProfes = modelMapper.map(DemandeFraisProfesDto,DemandeFraisProfes.class);
-	    	DemandeFraisProfes= dfps.desactiverDemandeFraisProfes(idDemande);
+	    	DemandeFraisProfes= dfps.desactiverDemandeFraisProfes(DemandeFraisProfesId);
 	        DemandeFraisProfesDto = modelMapper.map(DemandeFraisProfes,DemandeFraisProfesDto.class);
 	        return ResponseEntity.status(HttpStatus.CREATED).body(DemandeFraisProfesDto);
 
 	    }
 
-		@PostMapping("/acceptedemande/{DemandeFraisProfesId}")
+		@PostMapping("/accepteDemandeFraisProfes/{DemandeFraisProfesId}")
 		@ResponseBody
 		public void acceptedemandeById(@PathVariable Long DemandeFraisProfesId) {
 			dfps.acceptedemandeById(DemandeFraisProfesId);
 		}
 	 
-	@PostMapping("/add-DemandeFraisProfes")
+	@PostMapping("/addDemandeFraisProfes")
 	@ResponseBody
 	public Object addDemandeFraisProfes (@RequestBody DemandeFraisProfesDto datDto){
 		DemandeFraisProfes dat = modelMapper.map(datDto, DemandeFraisProfes.class);
@@ -86,7 +86,7 @@ public class DemandeFraisProfesController {
 	
 	
 	
-	@GetMapping("/retrieve-all-DemandeFraisProfes")
+	@GetMapping("/retrieveAllDemandeFraisProfes")
 	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@ResponseBody
 	public List<DemandeFraisProfes> getDemandeFraisProfess() {
@@ -95,21 +95,19 @@ public class DemandeFraisProfesController {
 		}
 	
 	
-	@GetMapping("/retrieve-DemandeFraisProfes/{DemandeFraisProfes-id}")
+	@GetMapping("/retrieveDemandeFraisProfes/{DemandeFraisProfesId}")
 	@ResponseBody
-	//public Optional<DemandeFraisProfes> retrieveDemandeFraisProfes(@PathVariable("DemandeFraisProfes-id") Long DemandeFraisProfesId){
-	//	return dfps.retrieveDemandeFraisProfes(DemandeFraisProfesId);
-	public Object DemandeFraisProfes(@PathVariable Long id ) {
-		DemandeFraisProfes produit = dfps.getDemandeFraisProfesById(id) ;
+	public Object DemandeFraisProfes(@PathVariable Long DemandeFraisProfesId) {
+		DemandeFraisProfes produit = dfps.getDemandeFraisProfesById(DemandeFraisProfesId) ;
 		DemandeFraisProfesDto datDto= modelMapper.map(produit, DemandeFraisProfesDto.class);
  return ResponseEntity.status(HttpStatus.OK).body(datDto);
 	}
 	
 	
 	
-	@PutMapping("/update-DemandeFraisProfes")
+	@PutMapping("/updateDemandeFraisProfes/{DemandeFraisProfesId}")
 	@ResponseBody
-	 public Object UpdateDemandeFraisProfes (@Validated @RequestBody DemandeFraisProfesDto DemandeFraisProfesDto , @PathVariable Long employerAttesTravailDemId) {
+	 public Object UpdateDemandeFraisProfes (@Validated @RequestBody DemandeFraisProfesDto DemandeFraisProfesDto , @PathVariable Long DemandeFraisProfesId) {
 				DemandeFraisProfes DemandeFraisProfes = modelMapper.map(DemandeFraisProfesDto,DemandeFraisProfes.class);
 				DemandeFraisProfes= dfps.updateDemandeFraisProfes( DemandeFraisProfes);
 		      DemandeFraisProfesDto = modelMapper.map(DemandeFraisProfes,DemandeFraisProfesDto.class);
@@ -118,10 +116,10 @@ public class DemandeFraisProfesController {
 
 	
 	
-	@DeleteMapping("/delete-DemandeFraisProfes/{DemandeFraisProfes-id}")
+	@DeleteMapping("/deleteDemandeFraisProfes/{DemandeFraisProfesId}")
 	@ResponseBody
-	public void deleteDemandeFraisProfes(@PathVariable ("DemandeFraisProfes-id") String DemandeFraisProfesId){
-		dfps.deleteDemandeFraisProfesById(1);
+	public void deleteDemandeFraisProfes(@PathVariable ("DemandeFraisProfesId") Long DemandeFraisProfesId){
+		dfps.deleteDemandeFraisProfesById(DemandeFraisProfesId);
 	}
 
 }

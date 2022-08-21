@@ -51,30 +51,30 @@ public class DemandeAvanceSalaireController {
 	        return ResponseEntity.status(HttpStatus.OK).body(DemandeAvanceSalaireDtos);
 	    }
 	 @PutMapping("/DemandeAvanceSalairesActives/{DemandeAvanceSalaireId}")
-	    public Object ActiverDemandeAvanceSalaire (@Validated @RequestBody DemandeAvanceSalaireDto DemandeAvanceSalaireDto , @PathVariable Long idDemande) {
+	    public Object ActiverDemandeAvanceSalaire (@Validated @RequestBody DemandeAvanceSalaireDto DemandeAvanceSalaireDto , @PathVariable Long DemandeAvanceSalaireId) {
 			DemandeAvanceSalaire DemandeAvanceSalaire = modelMapper.map(DemandeAvanceSalaireDto,DemandeAvanceSalaire.class);
-			DemandeAvanceSalaire= dass.activerDemandeAvanceSalaire(idDemande);
+			DemandeAvanceSalaire= dass.activerDemandeAvanceSalaire(DemandeAvanceSalaireId);
 	        DemandeAvanceSalaireDto = modelMapper.map(DemandeAvanceSalaire,DemandeAvanceSalaireDto.class);
 	        return ResponseEntity.status(HttpStatus.CREATED).body(DemandeAvanceSalaireDto);
 
 	    }
 
 	    @PutMapping("/DemandeAvanceSalairesDesactives/{DemandeAvanceSalaireId}")
-	    public Object DesactiverDemandeAvanceSalaire (@Validated @RequestBody DemandeAvanceSalaireDto DemandeAvanceSalaireDto , @PathVariable Long idDemande) {
+	    public Object DesactiverDemandeAvanceSalaire (@Validated @RequestBody DemandeAvanceSalaireDto DemandeAvanceSalaireDto , @PathVariable Long DemandeAvanceSalaireId) {
 	    	DemandeAvanceSalaire DemandeAvanceSalaire = modelMapper.map(DemandeAvanceSalaireDto,DemandeAvanceSalaire.class);
-	    	DemandeAvanceSalaire= dass.desactiverDemandeAvanceSalaire(idDemande);
+	    	DemandeAvanceSalaire= dass.desactiverDemandeAvanceSalaire(DemandeAvanceSalaireId);
 	        DemandeAvanceSalaireDto = modelMapper.map(DemandeAvanceSalaire,DemandeAvanceSalaireDto.class);
 	        return ResponseEntity.status(HttpStatus.CREATED).body(DemandeAvanceSalaireDto);
 
 	    }
 
-		@PostMapping("/acceptedemande/{DemandeAvanceSalaireId}")
+		@PostMapping("/accepteDemandeAvanceSalaires/{DemandeAvanceSalaireId}")
 		@ResponseBody
 		public void acceptedemandeById(@PathVariable Long DemandeAvanceSalaireId) {
 			dass.acceptedemandeById(DemandeAvanceSalaireId);
 		}
 	 
-	@PostMapping("/add-DemandeAvanceSalaire")
+	@PostMapping("/addDemandeAvanceSalaire")
 	@ResponseBody
 	public Object addDemandeAvanceSalaire (@RequestBody DemandeAvanceSalaireDto datDto){
 		DemandeAvanceSalaire dat = modelMapper.map(datDto, DemandeAvanceSalaire.class);
@@ -86,42 +86,34 @@ public class DemandeAvanceSalaireController {
 	
 	
 	
-	@GetMapping("/retrieve-all-DemandeAvanceSalaire")
-	//@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@ResponseBody
-	public List<DemandeAvanceSalaire> getDemandeAvanceSalaires() {
-		List<DemandeAvanceSalaire> list = dass.retrieveAllDemandeAvanceSalaires();
-		return list;
-		}
 	
 	
-	@GetMapping("/retrieve-DemandeAvanceSalaire/{DemandeAvanceSalaire-id}")
+	@GetMapping("/retrieveDemandeAvanceSalaire/{DemandeAvanceSalaireId}")
 	@ResponseBody
-	//public Optional<DemandeAvanceSalaire> retrieveDemandeAvanceSalaire(@PathVariable("DemandeAvanceSalaire-id") Long DemandeAvanceSalaireId){
-	//	return dass.retrieveDemandeAvanceSalaire(DemandeAvanceSalaireId);
-	public Object DemandeAvanceSalaire(@PathVariable Long id ) {
-		DemandeAvanceSalaire produit = dass.getDemandeAvanceSalaireById(id) ;
-		DemandeAvanceSalaireDto datDto= modelMapper.map(produit, DemandeAvanceSalaireDto.class);
+	public Object DemandeAvanceSalaire(@PathVariable Long DemandeAvanceSalaireId ) {
+		DemandeAvanceSalaire das = dass.getDemandeAvanceSalaireById(DemandeAvanceSalaireId) ;
+		DemandeAvanceSalaireDto datDto= modelMapper.map(das, DemandeAvanceSalaireDto.class);
  return ResponseEntity.status(HttpStatus.OK).body(datDto);
 	}
 	
 	
 	
-	@PutMapping("/update-DemandeAvanceSalaire")
+	@PutMapping("/updateDemandeAvanceSalaire/{DemandeAvanceSalaireId}")
 	@ResponseBody
-	 public Object UpdateDemandeAvanceSalaire (@Validated @RequestBody DemandeAvanceSalaireDto DemandeAvanceSalaireDto , @PathVariable Long employerAttesTravailDemId) {
+	 public Object UpdateDemandeAvanceSalaire (@Validated @RequestBody DemandeAvanceSalaireDto DemandeAvanceSalaireDto , @PathVariable Long DemandeAvanceSalaireId) {
 				DemandeAvanceSalaire DemandeAvanceSalaire = modelMapper.map(DemandeAvanceSalaireDto,DemandeAvanceSalaire.class);
-				DemandeAvanceSalaire= dass.updateDemandeAvanceSalaire( DemandeAvanceSalaire);
+				DemandeAvanceSalaire= dass.updateDemandeAvanceSalaire( DemandeAvanceSalaireId, DemandeAvanceSalaire);
 		      DemandeAvanceSalaireDto = modelMapper.map(DemandeAvanceSalaire,DemandeAvanceSalaireDto.class);
 		       return ResponseEntity.status(HttpStatus.CREATED).body(DemandeAvanceSalaireDto);
 		       }
+	
 
 	
 	
-	@DeleteMapping("/delete-DemandeAvanceSalaire/{DemandeAvanceSalaire-id}")
+	@DeleteMapping("/deleteDemandeAvanceSalaire/{DemandeAvanceSalaireId}")
 	@ResponseBody
-	public void deleteDemandeAvanceSalaire(@PathVariable ("DemandeAvanceSalaire-id") String DemandeAvanceSalaireId){
-		dass.deleteDemandeAvanceSalaireById(1);
+	public void deleteDemandeAvanceSalaire(@PathVariable ("DemandeAvanceSalaireId") Long DemandeAvanceSalaireId){
+		dass.deleteDemandeAvanceSalaireById(DemandeAvanceSalaireId);
 	}
 
 }

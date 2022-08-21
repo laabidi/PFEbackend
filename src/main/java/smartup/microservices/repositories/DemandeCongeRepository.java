@@ -11,7 +11,7 @@ import smartup.microservices.entities.DemandeConge;
 
 
 @Repository
-public interface DemandeCongeRepository extends JpaRepository<DemandeConge, Integer> {
+public interface DemandeCongeRepository extends JpaRepository<DemandeConge, Long> {
 	List<DemandeConge> findDemandeCongeByActive(@Param("active") int active);
 
 

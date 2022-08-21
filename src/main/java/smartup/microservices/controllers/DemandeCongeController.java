@@ -53,11 +53,9 @@ public class DemandeCongeController {
 	    }
 	
 	
-	@PostMapping("/add-DemandeConge")
+	@PostMapping("/addDemandeConge")
 	@ResponseBody
 	public Object addDemandeConge (@Validated @RequestBody DemandeCongeDto dcDto){
-		//DemandeConge DemandeConge = dcs.addDemandeConge(dc);
-		//return DemandeConge;
 		DemandeConge dc = modelMapper.map(dcDto, DemandeConge.class);
 	     dc = dcs.addDemandeConge(dc);
 	     dcDto = modelMapper.map(dc, DemandeCongeDto.class);
@@ -65,46 +63,29 @@ public class DemandeCongeController {
 		}
 	
 	
-	// http://localhost:8081/api/smartRH/retrieve-all-DemandeConges
-	@GetMapping("/retrieve-all-DemandeConges")
+	
+	/*@GetMapping("/retrieve-all-DemandeConges")
 	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@ResponseBody
 	public List<DemandeConge> getDemandeConges() {
 		List<DemandeConge> list = dcs.retrieveAllDemandeConges();
 		return list;
-		}
+		}*/
 	
-	// http://localhost:8081/api/smartRH/retrieve-DemandeConge/{DemandeConge-id}
-	@GetMapping("/retrieve-DemandeConge/{DemandeConge-id}")
+	
+	@GetMapping("/retrieveDemandeConge/{DemandeCongeId}")
 	@ResponseBody
-	public  Object DemandeConge(@PathVariable int Id){
-		//return dcs.retrieveDemandeConge(DemandeCongeId);
-		DemandeConge dc = dcs.getDemandeCongeById(Id) ;
-		DemandeCongeDto produitDto= modelMapper.map(dc, DemandeCongeDto.class);
-	        return ResponseEntity.status(HttpStatus.OK).body(produitDto);
+	public  Object DemandeConge(@PathVariable Long DemandeCongeId){
+		DemandeConge dc = dcs.getDemandeCongeById(DemandeCongeId) ;
+		DemandeCongeDto demandecongeDto= modelMapper.map(dc, DemandeCongeDto.class);
+	        return ResponseEntity.status(HttpStatus.OK).body(demandecongeDto);
 	    
 	}
 	
-
 	
-	//@PutMapping("/update-DemandeConge/{DemandeConge-id}")
-	//@ResponseBody
-	//public DemandeConge modifyDemandeConge(@RequestBody DemandeConge DemandeConge){
-	//	return dcs.updateDemandeConge(DemandeConge);
-	//}
-	//@RequestMapping(value = "/update-DemandeConge/{DemandeConge-id}", method = RequestMethod.PUT)
-	// @PutMapping("/update-DemandeConge/{DemandeConge-id}")
-	// @ResponseBody
-	  //  public Object updateDemandeConge (@Validated @RequestBody DemandeCongeDto dcDto , @PathVariable("DemandeConge-id") int id) {
-		// DemandeConge dc = modelMapper.map(dcDto,DemandeConge.class);
-	      //  dc= dcs.updateDemandeConge(id, dc);
-	      //  dcDto = modelMapper.map(dc,DemandeCongeDto.class);
-	      //  return ResponseEntity.status(HttpStatus.CREATED).body(dcDto);
-
-	   // }
-	@PutMapping("/update-DemandeConge/{employerInfosRhDemTypeId}")
+	@PutMapping("/updateDemandeConge/{employerInfosRhDemTypeId}")
 	@ResponseBody
-    public Object UpdateDemandeConge (@Validated @RequestBody DemandeCongeDto demandeCongeDto , @PathVariable int employerInfosRhDemTypeId) {
+    public Object UpdateDemandeConge (@Validated @RequestBody DemandeCongeDto demandeCongeDto , @PathVariable Long employerInfosRhDemTypeId) {
 		DemandeConge demandeConge = modelMapper.map(demandeCongeDto,DemandeConge.class);
 		demandeConge= dcs.updateDemandeConge(employerInfosRhDemTypeId, demandeConge);
       demandeCongeDto = modelMapper.map(demandeConge,DemandeCongeDto.class);
@@ -113,33 +94,33 @@ public class DemandeCongeController {
     }
 	
 	
-	@DeleteMapping("/delete-DemandeConge/{DemandeCongeId}")
+	@DeleteMapping("/deleteDemandeConge/{DemandeCongeId}")
 	@ResponseBody
-	public void deleteDemandeConge(@PathVariable ("DemandeCongeId") int DemandeCongeId){
+	public void deleteDemandeConge(@PathVariable ("DemandeCongeId") Long DemandeCongeId){
 		dcs.deleteDemandeCongeById(DemandeCongeId);
 	}
 	
 	@PutMapping("/demandeCongesActives/{DemandeCongeId}")
-    public Object ActiverDemandeConge (@Validated @RequestBody DemandeCongeDto demandeCongeDto , @PathVariable int idDemande) {
+    public Object ActiverDemandeConge (@Validated @RequestBody DemandeCongeDto demandeCongeDto , @PathVariable Long DemandeCongeId) {
 		DemandeConge demandeConge = modelMapper.map(demandeCongeDto,DemandeConge.class);
-		demandeConge= dcs.activerDemandeConge(idDemande);
+		demandeConge= dcs.activerDemandeConge(DemandeCongeId);
         demandeCongeDto = modelMapper.map(demandeConge,DemandeCongeDto.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(demandeCongeDto);
 
     }
 
     @PutMapping("/demandeCongesDesactives/{DemandeCongeId}")
-    public Object DesactiverDemandeConge (@Validated @RequestBody DemandeCongeDto demandeCongeDto , @PathVariable int idDemande) {
+    public Object DesactiverDemandeConge (@Validated @RequestBody DemandeCongeDto demandeCongeDto , @PathVariable Long DemandeCongeId) {
     	DemandeConge demandeConge = modelMapper.map(demandeCongeDto,DemandeConge.class);
-    	demandeConge= dcs.desactiverDemandeConge(idDemande);
+    	demandeConge= dcs.desactiverDemandeConge(DemandeCongeId);
         demandeCongeDto = modelMapper.map(demandeConge,DemandeCongeDto.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(demandeCongeDto);
 
     }
 
-	@PostMapping("/acceptedemande/{DemandeCongeId}")
+	@PostMapping("/acceptedemandeConge/{DemandeCongeId}")
 	@ResponseBody
-	public void acceptedemandeById(@PathVariable int DemandeCongeId) {
+	public void acceptedemandeById(@PathVariable Long DemandeCongeId) {
 		dcs.acceptedemandeById(DemandeCongeId);
 	}
 }

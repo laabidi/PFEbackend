@@ -27,13 +27,13 @@ public class DemandeAvanceSalaire implements Serializable {
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
  
-    private int employerAvSalaireDemId;
+    private Long employerAvSalaireDemId;
    
     private float employerAvSalaireDemMontant;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date employerAvSalaireDemDate;
     private String employerAvSalaireStatus;
-    private String active;
+    private int active =1;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
     private Utilisateur utilisateur;

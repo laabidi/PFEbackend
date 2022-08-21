@@ -1,8 +1,6 @@
 package smartup.microservices.dto;
 
-import java.time.LocalDate;
-
-import javax.persistence.Column;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -19,12 +17,12 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DemandeFraisProfesDto {
 	
-	private int employerFraisDemId;
+	private Long employerFraisDemId;
     private float employerFraisDemMontant;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate employerFraisDemDateMission;
+    private Date employerFraisDemDateMission;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    private LocalDate employerFraisDemDate;
+    private Date employerFraisDemDate;
     private String employerFraisDemStatus;
     private int active;
 }

@@ -48,30 +48,30 @@ public class DemandeInfoPersoController {
 	        return ResponseEntity.status(HttpStatus.OK).body(DemandeInfoPersoDtos);
 	    }
 	 @PutMapping("/DemandeInfoPersosActives/{DemandeInfoPersoId}")
-	    public Object ActiverDemandeInfoPerso (@Validated @RequestBody DemandeInfoPersoDto DemandeInfoPersoDto , @PathVariable Long idDemande) {
+	    public Object ActiverDemandeInfoPerso (@Validated @RequestBody DemandeInfoPersoDto DemandeInfoPersoDto , @PathVariable Long DemandeInfoPersoId) {
 			DemandeInfoPerso DemandeInfoPerso = modelMapper.map(DemandeInfoPersoDto,DemandeInfoPerso.class);
-			DemandeInfoPerso= dips.activerDemandeInfoPerso(idDemande);
+			DemandeInfoPerso= dips.activerDemandeInfoPerso(DemandeInfoPersoId);
 	        DemandeInfoPersoDto = modelMapper.map(DemandeInfoPerso,DemandeInfoPersoDto.class);
 	        return ResponseEntity.status(HttpStatus.CREATED).body(DemandeInfoPersoDto);
 
 	    }
 
 	    @PutMapping("/DemandeInfoPersosDesactives/{DemandeInfoPersoId}")
-	    public Object DesactiverDemandeInfoPerso (@Validated @RequestBody DemandeInfoPersoDto DemandeInfoPersoDto , @PathVariable Long idDemande) {
+	    public Object DesactiverDemandeInfoPerso (@Validated @RequestBody DemandeInfoPersoDto DemandeInfoPersoDto , @PathVariable Long DemandeInfoPersoId) {
 	    	DemandeInfoPerso DemandeInfoPerso = modelMapper.map(DemandeInfoPersoDto,DemandeInfoPerso.class);
-	    	DemandeInfoPerso= dips.desactiverDemandeInfoPerso(idDemande);
+	    	DemandeInfoPerso= dips.desactiverDemandeInfoPerso(DemandeInfoPersoId);
 	        DemandeInfoPersoDto = modelMapper.map(DemandeInfoPerso,DemandeInfoPersoDto.class);
 	        return ResponseEntity.status(HttpStatus.CREATED).body(DemandeInfoPersoDto);
 
 	    }
 
-		@PostMapping("/acceptedemande/{DemandeInfoPersoId}")
+		@PostMapping("/accepteDemandeInfoPerso/{DemandeInfoPersoId}")
 		@ResponseBody
 		public void acceptedemandeById(@PathVariable Long DemandeInfoPersoId) {
 			dips.acceptedemandeById(DemandeInfoPersoId);
 		}
 	 
-	@PostMapping("/add-DemandeInfoPerso")
+	@PostMapping("/addDemandeInfoPerso")
 	@ResponseBody
 	public Object addDemandeInfoPerso (@RequestBody DemandeInfoPersoDto datDto){
 		DemandeInfoPerso dat = modelMapper.map(datDto, DemandeInfoPerso.class);
@@ -83,7 +83,7 @@ public class DemandeInfoPersoController {
 	
 	
 	
-	@GetMapping("/retrieve-all-DemandeInfoPerso")
+	@GetMapping("/retrieveAllDemandeInfoPerso")
 	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@ResponseBody
 	public List<DemandeInfoPerso> getDemandeInfoPersos() {
@@ -92,21 +92,20 @@ public class DemandeInfoPersoController {
 		}
 	
 	
-	@GetMapping("/retrieve-DemandeInfoPerso/{DemandeInfoPerso-id}")
+	@GetMapping("/retrieveDemandeInfoPerso/{DemandeInfoPersoId}")
 	@ResponseBody
-	//public Optional<DemandeInfoPerso> retrieveDemandeInfoPerso(@PathVariable("DemandeInfoPerso-id") Long DemandeInfoPersoId){
-	//	return dips.retrieveDemandeInfoPerso(DemandeInfoPersoId);
-	public Object DemandeInfoPerso(@PathVariable Long id ) {
-		DemandeInfoPerso produit = dips.getDemandeInfoPersoById(id) ;
-		DemandeInfoPersoDto datDto= modelMapper.map(produit, DemandeInfoPersoDto.class);
+	
+	public Object DemandeInfoPerso(@PathVariable Long DemandeInfoPersoId) {
+		DemandeInfoPerso dip = dips.getDemandeInfoPersoById(DemandeInfoPersoId) ;
+		DemandeInfoPersoDto datDto= modelMapper.map(dip, DemandeInfoPersoDto.class);
  return ResponseEntity.status(HttpStatus.OK).body(datDto);
 	}
 	
 	
 	
-	@PutMapping("/update-DemandeInfoPerso")
+	@PutMapping("/updateDemandeInfoPerso/{DemandeInfoPersoId}")
 	@ResponseBody
-	 public Object UpdateDemandeInfoPerso (@Validated @RequestBody DemandeInfoPersoDto DemandeInfoPersoDto , @PathVariable Long employerAttesTravailDemId) {
+	 public Object UpdateDemandeInfoPerso (@Validated @RequestBody DemandeInfoPersoDto DemandeInfoPersoDto , @PathVariable Long DemandeInfoPersoId) {
 				DemandeInfoPerso DemandeInfoPerso = modelMapper.map(DemandeInfoPersoDto,DemandeInfoPerso.class);
 				DemandeInfoPerso= dips.updateDemandeInfoPerso( DemandeInfoPerso);
 		      DemandeInfoPersoDto = modelMapper.map(DemandeInfoPerso,DemandeInfoPersoDto.class);
@@ -115,10 +114,10 @@ public class DemandeInfoPersoController {
 
 	
 	
-	@DeleteMapping("/delete-DemandeInfoPerso/{DemandeInfoPerso-id}")
+	@DeleteMapping("/deleteDemandeInfoPerso/{DemandeInfoPersoId}")
 	@ResponseBody
-	public void deleteDemandeInfoPerso(@PathVariable ("DemandeInfoPerso-id") String DemandeInfoPersoId){
-		dips.deleteDemandeInfoPersoById(1);
+	public void deleteDemandeInfoPerso(@PathVariable ("DemandeInfoPerso-id") Long DemandeInfoPersoId){
+		dips.deleteDemandeInfoPersoById(DemandeInfoPersoId);
 	}
 
 }

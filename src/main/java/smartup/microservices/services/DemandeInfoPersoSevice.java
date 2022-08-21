@@ -11,7 +11,7 @@ public interface DemandeInfoPersoSevice {
 	public DemandeInfoPerso updateDemandeInfoPerso(DemandeInfoPerso e);
 	public Optional<DemandeInfoPerso> retrieveDemandeInfoPerso(Long id);
 	public DemandeInfoPerso getDemandeInfoPersoById(Long id);
-	public void deleteDemandeInfoPersoById(int id);
+	public void deleteDemandeInfoPersoById(Long id);
 	void acceptedemandeById(Long id);
 	DemandeInfoPerso activerDemandeInfoPerso(Long id);
 	DemandeInfoPerso desactiverDemandeInfoPerso(Long id);

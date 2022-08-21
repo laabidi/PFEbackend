@@ -40,9 +40,14 @@ public class DemandeAvanceSalaireServiceImpl implements DemandeAvanceSalaireServ
 	}
 
 	@Override
-	public DemandeAvanceSalaire updateDemandeAvanceSalaire(DemandeAvanceSalaire dat) {
-		return drep.save(dat) ;
+	public DemandeAvanceSalaire updateDemandeAvanceSalaire(Long id, DemandeAvanceSalaire dat) {
+		 getDemandeAvanceSalaireById(id);
+	        dat.setEmployerAvSalaireDemId(id);
+	        return drep.save(dat);
+		
 	}
+	
+	
 
 	@Override
 	public Optional<DemandeAvanceSalaire> retrieveDemandeAvanceSalaire(Long id) {
@@ -54,7 +59,7 @@ public class DemandeAvanceSalaireServiceImpl implements DemandeAvanceSalaireServ
 
 	@Override
 	public DemandeAvanceSalaire getDemandeAvanceSalaireById(Long id) {
-		Optional<DemandeAvanceSalaire> d = drep.findById(1L);
+		Optional<DemandeAvanceSalaire> d = drep.findById(id);
 		DemandeAvanceSalaire dat = new DemandeAvanceSalaire();
 		if (d.isPresent()) {
 			  dat= d.get();
@@ -63,9 +68,9 @@ public class DemandeAvanceSalaireServiceImpl implements DemandeAvanceSalaireServ
 	}
 
 	@Override
-	public void deleteDemandeAvanceSalaireById(int id) {
+	public void deleteDemandeAvanceSalaireById(Long id) {
 		{
-			Optional<DemandeAvanceSalaire> d = drep.findById(1L);
+			Optional<DemandeAvanceSalaire> d = drep.findById(id);
 
 			DemandeAvanceSalaire DemandeAvanceSalaire = new DemandeAvanceSalaire();
 			if (d.isPresent()) {
@@ -79,7 +84,7 @@ public class DemandeAvanceSalaireServiceImpl implements DemandeAvanceSalaireServ
 	@Override
 	public void acceptedemandeById(Long id) {
 		DemandeAvanceSalaire d = drep.findById(id).get();
-		d.setEmployerAvSalaireDemId(1);
+		d.setEmployerAvSalaireDemId(id);
 		NotificationDemande n=new NotificationDemande();
 		n.setBody("Votre  demande avance sur salaire de "+d.getEmployerAvSalaireDemDate() +"est confirmée !" );
 		n.setTitre("Demande accepté");
@@ -93,14 +98,14 @@ public class DemandeAvanceSalaireServiceImpl implements DemandeAvanceSalaireServ
 	@Override
 	public DemandeAvanceSalaire activerDemandeAvanceSalaire(Long id) {
 		DemandeAvanceSalaire p=drep.findById(id).get();
-        p.setActive("1");
+        p.setActive(1);
         return drep.save(p);
 	}
 
 	@Override
 	public DemandeAvanceSalaire desactiverDemandeAvanceSalaire(Long id) {
 		 DemandeAvanceSalaire p=drep.findById(id).get();
-	        p.setActive("0");
+	        p.setActive(0);
 	        return drep.save(p);
 	}
 
@@ -116,6 +121,7 @@ public class DemandeAvanceSalaireServiceImpl implements DemandeAvanceSalaireServ
 
 }
 
+	
 	
 
 }

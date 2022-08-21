@@ -25,7 +25,7 @@ public class DemandeFraisProfes implements Serializable{
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="employer_frais_dem_id")
-    private int employerFraisDemId;
+    private Long employerFraisDemId;
     @Column(name="employer_frais_dem_montant")
     private float employerFraisDemMontant;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
@@ -36,7 +36,7 @@ public class DemandeFraisProfes implements Serializable{
     private Date employerFraisDemDate;
     @Column(name="employer_frais_dem_status")
     private String employerFraisDemStatus;
-   private String active;
+   private int active =1;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
     private Utilisateur utilisateur;

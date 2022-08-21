@@ -21,7 +21,7 @@ public class DemandeInfoPerso implements Serializable{
 	@Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
 	
-    private int employerInfosPersoRhDemLibelle;
+    private Long employerInfosPersoRhDemLibelle;
 	private String employerInfosPersoRhDemMatricule;
 	private String employerInfosPersoRhDemUsername;
 	private String employerInfosPersoRhDemAdress;
@@ -32,7 +32,7 @@ public class DemandeInfoPerso implements Serializable{
 	private String employerInfosPersoRhDemEmail;
 	private String employerInfosPersoRhDemBanque;
 	private int employerInfosPersoRhDemRib;
-	private int active;
+	private int active =1;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
